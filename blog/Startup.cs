@@ -8,13 +8,21 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using blog.Service;
 
 namespace blog
 {
     public class Startup
-    {        
+    {
+        public IConfiguration Configuration { get; }
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
         public void ConfigureServices(IServiceCollection services)
         {
+            Configuration.Bind("Project", new Config());
             services.AddControllersWithViews();
         }
         
